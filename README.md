@@ -209,6 +209,18 @@ foreach ($sub in $subscriptions) {
 }
 ```
 
+## Version Control
+
+The project includes Git configuration files:
+- **`.gitignore`**: Excludes output files, logs, and sensitive data from version control
+- **`.gitattributes`**: Ensures proper line endings and file handling
+- **`Setup-Git.ps1`**: Helper script to initialize a Git repository
+
+To set up version control:
+```powershell
+.\Setup-Git.ps1
+```
+
 ## Version History
 
 - **v1.0**: Initial release with secure score, CSPM, and compliance data export
