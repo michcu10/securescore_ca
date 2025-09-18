@@ -18,7 +18,7 @@
     Specific Azure subscription ID to analyze. If not provided, all accessible subscriptions will be processed.
 
 .PARAMETER OutputPath
-    Directory path where CSV files will be saved. Defaults to current directory.
+    Directory path where CSV files will be saved. Defaults to .\Reports directory.
 
 .PARAMETER IncludeCompliance
     Include regulatory compliance data in the export.
@@ -97,8 +97,18 @@ function Write-Log {
         'Success' { Write-Host $logMessage -ForegroundColor Green }
     }
     
-    # Write to log file
-    Add-Content -Path $script:LogFile -Value $logMessage
+    # Write to log file (create directory if needed)
+    try {
+        $logDir = Split-Path $script:LogFile -Parent
+        if (-not (Test-Path $logDir)) {
+            New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+        }
+        Add-Content -Path $script:LogFile -Value $logMessage
+    }
+    catch {
+        # If logging fails, continue without logging to avoid breaking the script
+        Write-Warning "Failed to write to log file: $($_.Exception.Message)"
+    }
 }
 
 function Test-AzureConnection {
