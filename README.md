@@ -180,6 +180,22 @@ The script uses Azure Resource Graph queries to collect data from:
 - Log files contain detailed execution information - review before sharing
 - Follow your organization's data handling policies for exported security data
 
+### Git History Security
+
+If you accidentally committed sensitive data files to Git:
+
+**Quick cleanup** (removes files from Git history):
+```powershell
+.\Quick-PurgeHistory.ps1
+```
+
+**Advanced cleanup** (comprehensive history rewriting):
+```powershell
+.\Purge-GitHistory.ps1
+```
+
+⚠️ **Important**: These operations rewrite Git history and require force-pushing to remote repositories. All collaborators will need to re-clone the repository.
+
 ## Examples
 
 ### Daily Security Report
